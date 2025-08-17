@@ -1,0 +1,27 @@
+# Specifies the version of the Docker Compose file format. '3.8' is a modern, stable version.
+version: "3.8"
+
+# This is the main section where we define all our services (containers).
+services:
+  # Defines our Node.js service. We can name this anything we like.
+  node-app:
+    # 'build' tells Docker Compose how to create the image for this service.
+    build:
+      # 'context' is the path to the directory containing the Dockerfile and source code.
+      context: ./node-thumbnail-generation
+    # 'volumes' is how we share folders between our host machine (your Mac) and the container.
+    volumes:
+      # This line maps the './images' folder on your machine to '/app/images' inside the container.
+      # The ':ro' at the end means "read-only", which is a good practice for input data.
+      - ./images:/app/images:ro
+      # This maps the './thumbnails-node' folder to '/app/thumbnails' inside the container.
+      # It's read-write by default, so the service can create thumbnails here.
+      - ./thumbnails-node:/app/thumbnails
+
+  # Defines our Rust service.
+  rust-app:
+    build:
+      context: ./rust-thumbnail-generation
+    volumes:
+      - ./images:/app/images:ro
+      - ./thumbnails-rust:/app/thumbnails

@@ -1,0 +1,14 @@
+{
+  "name": "node-thumbnail-generation",
+  "version": "1.0.0",
+  "description": "Node.js thumbnail generation service for performance testing.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "heic-convert": "^1.2.4",
+    "sharp": "^0.32.6"
+  }
+}
